@@ -25,26 +25,24 @@ start = time.time() # Time since start, for plotting
 lap = time.time() # Time since last step, for checking loop condition
 for i in range(STEPS):
     # Move to next point. use wait=False so that values are saved while moving.
-	robot.arm.set_ee_pose_pitch_roll([0.418 - 0.02 * i, 0.0, 0.15], pitch=1.57, roll=0, plan=False, wait=False)
+    robot.arm.set_ee_pose_pitch_roll([0.418 - 0.02 * i, 0.0, 0.15], pitch=1.57, roll=0, plan=False, wait=False)
     # Save end effector positions.
-	while time.time() - lap < TIME_BETWEEN_STEPS:
-		elaptime = time.time() - start
-		pos = robot.arm.pose_ee[0]
-		Time.append(elaptime)
-		ee_pos.append(pos)
-	lap = time.time()
+    while time.time() - lap < TIME_BETWEEN_STEPS:
+        elaptime = time.time() - start
+        pos = robot.arm.pose_ee[0]
+        Time.append(elaptime)
+        ee_pos.append(pos)
+    lap = time.time()
 
 # Plot EE pose over time.
 y_labels = ['X', 'Y', 'Z']
 fig,axes = plt.subplots(3)
 for axis in range(3): # x y z
     axes[axis].plot(Time, [ee_pos[i][axis] for i in range(len(ee_pos))])
-    axes[axis].xlabel('Time (s)')
-    axes[axis].ylabel(f'{y_labels[axis]} (m)')
-    axes[axis].annotate(str(ee_pos[-1][axis]),xy=(time[-1],ee_pos[-1][axis]))
+    axes[axis].set_xlabel('Time (s)')
+    axes[axis].set_ylabel(f'{y_labels[axis]} (m)')
+    axes[axis].annotate(str(ee_pos[-1][axis]), xy=(time[-1], ee_pos[-1][axis]))
 
-# axes[1].plot(Time, [ee_pos[i][1] for i in range(len(ee_pos))])
-# axes[2].plot(Time, [ee_pos[i][2] for i in range(len(ee_pos))])
 plt.show()
 
 print(f'First pos: {ee_pos[0]}\n Last pos:{ee_pos[-1]}')
