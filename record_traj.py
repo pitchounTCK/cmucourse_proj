@@ -1,5 +1,6 @@
 '''
 Records a human controlled trajectory for a skill. Saves it for fitting of a DMP.
+
 roslaunch locobot_control main.launch use_arm:=true torque_control:=true use_rviz:=false
 python3 record_traj.py
 '''
@@ -63,5 +64,6 @@ while elaptime < DURATION:
 # Save lists. auto saves to .npz 
 filename = input('Save as: ')
 np.savez(filename, time=time_array, pos=pos_array, vel=vel_array, acc=acc_array)
+print(f'Saved to {filename}.npz!')
 
 # TODO: add plots for pos, vel and acc

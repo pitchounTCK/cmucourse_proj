@@ -1,10 +1,10 @@
 '''
 Replays the recorded trajectory by end effector position.
+
 roslaunch locobot_control main.launch use_arm:=true torque_control:=false use_rviz:=false
 python3 replay_traj.py
 '''
 
-import time
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -13,7 +13,8 @@ from pyrobot import Robot
 robot = Robot('locobot')
 
 # Change file to load here.
-filename = 'right.npz'
+filename = 'curve.npz'
+print(f'Loading from {filename}')
 
 positions = np.load(filename)['pos']
 velocities = np.load(filename)['vel']
@@ -31,8 +32,8 @@ plt.show()
 # Move arm
 for position in positions:
     position = position.tolist()
-    robot.arm.set_ee_pose_pitch_roll(position, pitch=1.57, roll=0, plan=True)
-    time.sleep(0.1)
+    robot.arm.set_ee_pose_pitch_roll(position, pitch=1.57, roll=0, plan=False)
+
 
 
 
