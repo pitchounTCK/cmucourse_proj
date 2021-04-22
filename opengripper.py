@@ -9,7 +9,7 @@ from pyrobot import Robot
 robot = Robot('locobot')
 
 # Move to start position.
-robot.arm.set_ee_pose_pitch_roll([0.418, 0., 0.25], pitch=1.57, roll=0, plan=True)
+robot.arm.set_ee_pose_pitch_roll([0.418, 0., 0.3], pitch=1.57, roll=0, plan=True)
 
 def open_gripper():
     robot.gripper.open()
@@ -33,7 +33,7 @@ while True:
         position = json.loads(position)
         move(position)
     elif command.lower() == 'exit':
-        robot.arm.set_ee_pose_pitch_roll([0.418, 0., 0.25], pitch=1.57, roll=0, plan=True)
+        robot.arm.set_ee_pose_pitch_roll([0.418, 0., 0.3], pitch=1.57, roll=0, plan=True)
         break
     else:
         print('please enter a valid command.')
