@@ -39,15 +39,19 @@ print("\nStarting to record")
 # Save first position and velocity
 old_pos = np.concatenate((robot.arm.pose_ee[0]), axis=None)
 old_vel = np.zeros_like(old_pos)
+acc = np.zeros_like(old_pos)
+pos_array.append(old_pos)
+vel_array.append(old_vel)
+acc_array.append(acc)
+
 start = time.time()
 while elaptime < DURATION:
     elaptime = time.time() - start
     # TODO: Check data format
     pos = np.concatenate((robot.arm.pose_ee[0]), axis=None)
-    # use previous value to estimate differential
+    # use previous values to estimate differential
     vel = (pos - old_pos) / TIME_BETWEEN_STEPS
     acc = (vel - old_vel) / TIME_BETWEEN_STEPS
-    # TODO: Add vel and acc
     time_array.append(elaptime)
     pos_array.append(pos)
     vel_array.append(vel)
@@ -56,6 +60,8 @@ while elaptime < DURATION:
     old_pos = pos
     time.sleep(TIME_BETWEEN_STEPS)
 
-# Save both lists. auto saves to .npz 
+# Save lists. auto saves to .npz 
 filename = input('Save as: ')
 np.savez(filename, time=time_array, pos=pos_array, vel=vel_array, acc=acc_array)
+
+# TODO: add plots for pos, vel and acc

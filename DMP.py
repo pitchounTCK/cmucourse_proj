@@ -2,12 +2,12 @@
 Fits a DMP from EE xyz position velocity and acceleration. 
 Generates trajectory for the learned skill.
 '''
+
 import math
 import numpy as np
 import matplotlib.pyplot as plt
 
-
-# from pyrobot import Robot
+from pyrobot import Robot
 
 class DMP:
 
@@ -86,10 +86,10 @@ class DMP:
 if __name__ == "__main__":
     DMP = DMP(5)
     print('learning weights')
-    DMP.learn_weights('straight.npz')
+    DMP.learn_weights('right.npz')
     # DMP.load_weights('DMPweights.npy')
     print('generating trajectory')
-    trajectory = DMP.generate_traj([0.338, 0, 0.25], [0.418, 0, 0.25])
+    trajectory = DMP.generate_traj([0.338, 0.1, 0.26], [0.338, -0., 0.26])
     # import pdb; pdb.set_trace()
     fig,axes = plt.subplots(3)
     axes[0].plot([trajectory[i][0] for i in range(len(trajectory))])
@@ -104,11 +104,11 @@ if __name__ == "__main__":
     axes[2].plot([trajectory[i][2] for i in range(len(trajectory))])
     axes[2].set_ylabel('Z(m)')
 
-    plt.show()
+    # plt.show()
 
-    # robot = Robot('locobot')
+    robot = Robot('locobot')
     print('moving')
     # TODO: set position directly in generate_traj?
-    # for position in trajectory:
-    #     robot.arm.set_ee_pose_pitch_roll(position, pitch=1.57, roll=0, plan=False)
+    for position in trajectory:
+        robot.arm.set_ee_pose_pitch_roll(position, pitch=1.57, roll=0, plan=False)
         # time.sleep(0.1)
