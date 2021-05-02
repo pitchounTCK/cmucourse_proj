@@ -154,7 +154,6 @@ def get_vertices(imgFile):
         plt.plot(px, py)
         plt.show()
 
-        #pts.append(x0)
-        #pts.append(y0) 
+        #pts.append([x0, y0])
         return pts
 
