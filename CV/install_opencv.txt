@@ -1,4 +1,0 @@
-pip install --upgrade pip
-pip install opencv-contrib-python
-pip install imutils
-pip install scipy
