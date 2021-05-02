@@ -112,6 +112,8 @@ def get_vertices(imgFile):
                                   font, 0.5, (255, 0, 0)) 
                         print(string)
                         pts.append([fx, fy])
+                        x0 = fx
+                        y0 = fy
                     else:
                         # text on remaining co-ordinates.
                         cv2.circle(canvass, (x,y), 10, (0,0,255))
@@ -129,17 +131,11 @@ def get_vertices(imgFile):
 
         px = []
         py = []
-        k = 0
 
         plt.figure("Scaled")
         for pt in pts:
-          if k == 0:
-            x0 = pt[0]
-            y0 = pt[1]
           px.append(pt[0])
           py.append(pt[1])
-
-          k = k +1
 
         # zip joins x and y coordinates in pairs
         for x1,y1 in zip(px,py):
@@ -156,8 +152,9 @@ def get_vertices(imgFile):
         px.append(x0)
         py.append(y0)
         plt.plot(px, py)
-
         plt.show()
-        
+
+        #pts.append(x0)
+        #pts.append(y0) 
         return pts
 
