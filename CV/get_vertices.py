@@ -3,8 +3,6 @@
 import numpy as np
 import cv2
 import matplotlib.pyplot as plt
-import argparse
-import glob
 
 def auto_canny(image, sigma=0.33):
         # compute the median of the single channel pixel intensities
@@ -81,7 +79,7 @@ def get_vertices(imgFile):
         by = 0.2
 
         # create scale and shift factors
-        dx = lx - rx
+        dx = rx - lx
         dy = ty - by
         scaleX = w / dx
         scaleY = h / dy
@@ -152,6 +150,7 @@ def get_vertices(imgFile):
 
         #Draw plots from scaled contour points
         plt.scatter(px, py)
+        print(pts)
 
         #Append first point as last point to close the plot
         px.append(x0)
